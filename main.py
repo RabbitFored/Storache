@@ -67,13 +67,13 @@ def storache(update, context):
     if update.message.chat.type == "private":
         editable = update.message.reply_text("Please wait ...")
         try:
-            forwarded = context.bot.copy_message(chat_id='',
+            forwarded = context.bot.copy_message(chat_id=chat,
                                                  from_chat_id=update.message.chat.id,
                                                  message_id=update.message.message_id)
 
 # For a secondary Backup
 
-#           context.bot.copy_message(chat_id='',
+#           context.bot.copy_message(chat_id=chat,
 #                                     from_chat_id=update.message.chat.id,
 #                                     message_id=update.message.message_id)
             file_er_id = forwarded.message_id
