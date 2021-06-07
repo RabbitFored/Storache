@@ -20,6 +20,7 @@ from telegram.utils import helpers
 key = os.environ.get('key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
 iv = os.environ.get('iv', "C085CCCB55A247AC")
 chat = os.environ.get('chat', None)
+BotUsername = os.environ.get('username', None)
 TOKEN = os.environ.get('Token', None)
 
 logging.basicConfig(
@@ -50,7 +51,7 @@ def start(update, context):
             context.bot.sendMessage(chat_id=u.message.chat.id, text='File Not Found')
 
 def assist(update, context):
-    update.message.reply_text("*Hey! My name is Storache.* "
+    update.message.reply_text(f"*Hey! My name is {BotUsername}.* "
                               "\n\nI am the safest file store bot, here to help you to keep all your files secure!"
                               "\nI have lots of handy features to help You"
                               "\n\n*Helpful commands:*"
@@ -80,7 +81,7 @@ def storache(update, context):
             enc_s = AES.new(key, AES.MODE_CFB, iv)
             cipher_text = enc_s.encrypt(str(file_er_id))
             encoded_cipher_text = base64.b64encode(cipher_text)
-            sharelink = f"https://telegram.dog/storacheBot?start=theostrich_{(str(encoded_cipher_text))[2:-1]}"
+            sharelink = f"https://telegram.dog/{BotUsername}?start=theostrich_{(str(encoded_cipher_text))[2:-1]}"
             try:
                 context.bot.sendMessage(chat_id=chat, text=f"*Ache Map:*\n\n*File ID :* {forwarded.message_id}\n*User ID* :{update.message.chat.id}\n*User Name :* @{update.message.chat.username}\n*First Name : *{update.message.chat.first_name}\n*Last Name : *{update.message.chat.last_name}\n*Text :* {update.message.text}",
                                     reply_to_message_id=forwarded.message_id, parse_mode=telegram.ParseMode.MARKDOWN)
@@ -104,7 +105,7 @@ def aboutTheBot(update, context):
             telegram.InlineKeyboardButton("👥Support Group", url="t.me/ostrichdiscussion"),
         ],
         [telegram.InlineKeyboardButton((emoji.emojize(":bookmark:", use_aliases=True)) + "Add Me In Group",
-                                       url="https://t.me/storacheBot?startgroup=new")],
+                                       url=f"https://t.me/{BotUsername}?startgroup=new")],
     ]
 
     reply_markup = telegram.InlineKeyboardMarkup(keyboard)
