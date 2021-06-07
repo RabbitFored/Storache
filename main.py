@@ -41,15 +41,14 @@ def start(update, context):
                 reply_to_message_id=update.message.message_id)
 
     else:
-        #try:
+        try:
             file_d = usr_cmd
             decryption_suite = AES.new(key, AES.MODE_CFB, iv)
             file_id = decryption_suite.decrypt(base64.b64decode(file_d))
-            print(file_id)
-            sendFile = context.bot.forward_message(chat_id=update.message.from_user.id, from_chat_id="-1001461051091",
+            sendFile = context.bot.forward_message(chat_id=update.message.from_user.id, from_chat_id=chat,
                                                    message_id=int(file_id))
-        #except:
-            #context.bot.sendMessage(chat_id=update.message.chat.id, text='File Not Found')
+        except:
+            context.bot.sendMessage(chat_id=update.message.chat.id, text='File Not Found')
 
 def assist(update, context):
     update.message.reply_text(f"*Hey! My name is {BotUsername}.* "
