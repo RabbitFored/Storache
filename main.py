@@ -17,6 +17,10 @@ from telegram.ext import (
 
 from telegram.utils import helpers
 
+key = os.environ.get('key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
+iv = os.environ.get('iv', "C085CCCB55A247AC")
+chat = os.environ.get('chat', None)
+
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
@@ -37,8 +41,6 @@ def start(update, context):
     else:
         try:
             file_d = usr_cmd
-            key = os.environ.get('Encryption Key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
-            iv = os.environ.get('Encryption Key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
             decryption_suite = AES.new(key, AES.MODE_CFB, iv)
             file_id = decryption_suite.decrypt(base64.b64decode(file_d))
             sendFile = context.bot.forward_message(chat_id=update.message.from_user.id, from_chat_id="-1001461051091",
@@ -74,18 +76,18 @@ def storache(update, context):
 #                                     from_chat_id=update.message.chat.id,
 #                                     message_id=update.message.message_id)
             file_er_id = forwarded.message_id
-            key = ''
-            iv = ''
             enc_s = AES.new(key, AES.MODE_CFB, iv)
             cipher_text = enc_s.encrypt(str(file_er_id))
             encoded_cipher_text = base64.b64encode(cipher_text)
             sharelink = f"https://telegram.dog/storacheBot?start=theostrich_{(str(encoded_cipher_text))[2:-1]}"
-            context.bot.sendMessage(chat_id='', text=f"*Ache Map:*\n\n*File ID    :* {forwarded.message_id}\n*User ID* :{update.message.chat.id}\n*User Name :* {update.message.chat.username}\n*First Name : *{update.message.chat.first_name}\n*Last Name : *{update.message.chat.last_name}\n*Text :* {update.message.text}",
+            try:
+                context.bot.sendMessage(chat_id=chat, text=f"*Ache Map:*\n\n*File ID :* {forwarded.message_id}\n*User ID* :{update.message.chat.id}\n*User Name :* @{update.message.chat.username}\n*First Name : *{update.message.chat.first_name}\n*Last Name : *{update.message.chat.last_name}\n*Text :* {update.message.text}",
                                     reply_to_message_id=forwarded.message_id, parse_mode=telegram.ParseMode.MARKDOWN)
-# For a secondary Backup
+            except:
+                context.bot.sendMessage(chat_id=chat,
+                                        text=f"<b>Ache Map:</b>\n\n<b>File ID :</b> {forwarded.message_id}\n<b>User ID</b> :{update.message.chat.id}\n<b>User Name :</b> @{update.message.chat.username}\n<b>First Name : </b>{update.message.chat.first_name}\n<b>Last Name : </b>{update.message.chat.last_name}\n<b>Text :</b> {update.message.text}",
+                                        reply_to_message_id=forwarded.message_id, parse_mode='html')
 
-#            context.bot.sendMessage(chat_id='', text=f"*Ache Map:*\n\n*File ID :* {forwarded.message_id}\n*User ID* :{update.message.chat.id}\n*User Name :* {update.message.chat.username}\n*First Name : *{update.message.chat.first_name}\n*Last Name : *{update.message.chat.last_name}\n*Text :* {update.message.text}",
-#                                    reply_to_message_id=forwarded.message_id, parse_mode=telegram.ParseMode.MARKDOWN)
             context.bot.editMessageText(f"File stored safely in  a safest place, get it anytime using :\n\n{sharelink}",
                                         chat_id=update.message.chat_id,
                                         message_id=editable.message_id)
