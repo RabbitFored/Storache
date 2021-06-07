@@ -149,7 +149,7 @@ def main():
     dispatcher.add_handler(CommandHandler("help", assist))
     dispatcher.add_handler(CommandHandler("about", aboutTheBot))
     dispatcher.add_handler(CommandHandler("donate", donate))
-    dispatcher.add_handler(MessageHandler((Filters.audio | Filters.Photo | Filters.document | Filters.video), storache))
+    dispatcher.add_handler(MessageHandler((Filters.audio | Filters.photo | Filters.document | Filters.video), storache))
     updater.start_polling()
 
 
