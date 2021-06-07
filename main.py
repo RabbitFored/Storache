@@ -48,7 +48,7 @@ def start(update, context):
             sendFile = context.bot.forward_message(chat_id=update.message.from_user.id, from_chat_id="-1001461051091",
                                                    message_id=int(file_id))
         except:
-            context.bot.sendMessage(chat_id=u.message.chat.id, text='File Not Found')
+            context.bot.sendMessage(chat_id=update.message.chat.id, text='File Not Found')
 
 def assist(update, context):
     update.message.reply_text(f"*Hey! My name is {BotUsername}.* "
