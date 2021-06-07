@@ -37,8 +37,8 @@ def start(update, context):
     else:
         try:
             file_d = usr_cmd
-            key = ''
-            iv = ''
+            key = os.environ.get('Encryption Key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
+            iv = os.environ.get('Encryption Key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
             decryption_suite = AES.new(key, AES.MODE_CFB, iv)
             file_id = decryption_suite.decrypt(base64.b64decode(file_d))
             sendFile = context.bot.forward_message(chat_id=update.message.from_user.id, from_chat_id="-1001461051091",
