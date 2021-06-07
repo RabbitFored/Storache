@@ -20,6 +20,7 @@ from telegram.utils import helpers
 key = os.environ.get('key', "7F30F2253DEC8C1E88D3C0C91416AE1B")
 iv = os.environ.get('iv', "C085CCCB55A247AC")
 chat = os.environ.get('chat', None)
+TOKEN = os.environ.get('Token', None)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -140,7 +141,6 @@ def donate(update, context):
 
 
 def main():
-    TOKEN = ""
 
     updater = Updater(TOKEN)
     # Get the dispatcher to register handlers
