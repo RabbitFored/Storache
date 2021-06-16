@@ -1,0 +1,40 @@
+{
+  "name": "Storache",
+  "description": "Store your telegram files safe and secure.",
+  "keywords": [
+    "telegram",
+    "python",
+"ostrich",
+"safe",
+"secure",
+    "bots"
+  ],
+  "website": "https://github.com/RabbitFored/Storache/",
+  "repository": "https://github.com/RabbitFored/Storache/",
+  "success_url": "https://t.me/storacheBot",
+  "env": {
+    "Token": {
+      "description": "Your bot token",
+      "value": ""
+    },
+      
+    "chat": {
+      "description": "Chat ID of channel which stores the files",
+      "value": ""
+    },
+    "username": {
+      "description": "Your bot's username without @",
+      "value": ""
+    }
+
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+   "buildpacks":
+ [  
+  { "url": "heroku/python" } ]
+ }
